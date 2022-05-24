@@ -53,6 +53,7 @@ if __name__ == "__main__":
     parser.add_argument('--n_workers', type=int, default=TIMITConfig.n_workers)
     parser.add_argument('--dev', type=str, default=False)
     parser.add_argument('--model_checkpoint', type=str, default=TIMITConfig.model_checkpoint)
+    parser.add_argument('--run_name', type=str, default=TIMITConfig.run_name)
     parser.add_argument('--model_type', type=str, default=TIMITConfig.model_type)
     parser.add_argument('--upstream_model', type=str, default=TIMITConfig.upstream_model)
     parser.add_argument('--narrow_band', type=str, default=TIMITConfig.narrow_band)
@@ -115,13 +116,14 @@ if __name__ == "__main__":
 
     logger = WandbLogger(
         name=TIMITConfig.run_name,
+        offline=True,
         project='SpeakerProfiling'
     )
 
     model = LightningModel(vars(hparams))
 
     model_checkpoint_callback = ModelCheckpoint(
-        dirpath='checkpoints',
+        dirpath='checkpoints/{}'.format(hparams.run_name),
         monitor='val/loss', 
         mode='min',
         verbose=1)
