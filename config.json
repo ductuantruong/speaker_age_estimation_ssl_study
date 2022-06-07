@@ -3,7 +3,7 @@
     "dataDir": {
         "dir": "",
         "data_path": "data/wav_data/",
-        "speaker_csv_path": "$Dataset/data_info_height_age.csv"
+        "speaker_csv_path": "Dataset/data_info_height_age.csv"
     },
     "model_parameters": {
         "batch_size": "8",
