@@ -1,13 +1,13 @@
 {
     "model_name": "Wav2vec2BiEncoder",
     "dataDir": {
-        "dir": "/notebooks/SpeakerProfiling",
-        "data_path": "$dir/TIMIT_Dataset/wav_data/",
-        "speaker_csv_path": "$dir/Dataset/data_info_height_age.csv"
+        "dir": "",
+        "data_path": "data/wav_data/",
+        "speaker_csv_path": "$Dataset/data_info_height_age.csv"
     },
     "model_parameters": {
         "batch_size": "8",
-        "epochs": "50",
+        "epochs": "200",
         "lr": "1e-6",
         "model_type": "Wav2vec2BiEncoder",
         "upstream_model": "wav2vec2",
