@@ -115,7 +115,7 @@ if __name__ == "__main__":
     print('Dataset Split (Train, Validation, Test)=', len(train_set), len(valid_set), len(test_set))
 
     logger = WandbLogger(
-        name=TIMITConfig.run_name,
+        name=hparams.run_name,
         offline=True,
         project='SpeakerProfiling'
     )
