@@ -41,7 +41,6 @@ class TIMITDataset(Dataset):
         id = file.split('_')[0][1:]
         g_id = file.split('_')[0]
         gender = self.gender_dict[self.df.loc[id, 'Sex']]
-        height = self.df.loc[id, 'height']
         age =  self.df.loc[id, 'age']
         
         wav, _ = torchaudio.load(os.path.join(self.wav_folder, file))
@@ -52,12 +51,9 @@ class TIMITDataset(Dataset):
         if self.narrow_band:
             wav = self.resampleUp(self.resampleDown(wav))
         
-        h_mean = self.df[self.df['Use'] == 'TRN']['height'].mean()
-        h_std = self.df[self.df['Use'] == 'TRN']['height'].std()
         a_mean = self.df[self.df['Use'] == 'TRN']['age'].mean()
         a_std = self.df[self.df['Use'] == 'TRN']['age'].std()
         
-        height = (height - h_mean)/h_std
         age = (age - a_mean)/a_std
         
         probability = 0.5
@@ -66,7 +62,6 @@ class TIMITDataset(Dataset):
             mixup_file = self.files[mixup_idx]
             mixup_id = mixup_file.split('_')[0][1:]
             mixup_gender = self.gender_dict[self.df.loc[mixup_id, 'Sex']]
-            mixup_height = self.df.loc[mixup_id, 'height']
             mixup_age =  self.df.loc[mixup_id, 'age']
 
             mixup_wav, _ = torchaudio.load(os.path.join(self.wav_folder, mixup_file))
@@ -77,7 +72,6 @@ class TIMITDataset(Dataset):
             if self.narrow_band:
                 mixup_wav = self.resampleUp(self.resampleDown(mixup_wav))
 
-            mixup_height = (mixup_height - h_mean)/h_std
             mixup_age = (mixup_age - a_mean)/a_std
             
             if(mixup_wav.shape[1] < wav.shape[1]):
@@ -92,8 +86,7 @@ class TIMITDataset(Dataset):
             lam = np.random.beta(alpha, alpha)
             
             wav = lam*wav + (1-lam)*mixup_wav
-            height = lam*height + (1-lam)*mixup_height
             age = lam*age + (1-lam)*mixup_age
             gender = lam*gender + (1-lam)*mixup_gender
             
-        return wav, torch.FloatTensor([height]), torch.FloatTensor([age]), torch.FloatTensor([gender])
+        return wav, torch.FloatTensor([age]), torch.FloatTensor([gender])
