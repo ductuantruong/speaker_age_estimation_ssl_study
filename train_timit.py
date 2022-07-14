@@ -57,6 +57,7 @@ if __name__ == "__main__":
     parser.add_argument('--model_type', type=str, default=TIMITConfig.model_type)
     parser.add_argument('--upstream_model', type=str, default=TIMITConfig.upstream_model)
     parser.add_argument('--narrow_band', type=str, default=TIMITConfig.narrow_band)
+    parser.add_argument('--state_number', type=str, default='last_hidden_state')
     
     parser = pl.Trainer.add_argparse_args(parser)
     hparams = parser.parse_args()
@@ -65,7 +66,7 @@ if __name__ == "__main__":
     if not torch.cuda.is_available():
         hparams.gpu = 0
     else:        
-        print(f'Training Model on TIMIT Dataset\n#Cores = {hparams.n_workers}\t#GPU = {hparams.gpu}')
+        print(f'Training Model with {hparams.state_number} on TIMIT Dataset\n#Cores = {hparams.n_workers}\t#GPU = {hparams.gpu}')
 
     # Training, Validation and Testing Dataset
     ## Training Dataset

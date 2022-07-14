@@ -23,7 +23,7 @@ class LightningModel(pl.LightningModule):
             'Wav2vec2BiEncoder': Wav2vec2BiEncoder,
         }
         
-        self.model = self.models[HPARAMS['model_type']](upstream_model=HPARAMS['upstream_model'], num_layers=HPARAMS['num_layers'], feature_dim=HPARAMS['feature_dim'])
+        self.model = self.models[HPARAMS['model_type']](upstream_model=HPARAMS['upstream_model'], num_layers=HPARAMS['num_layers'], feature_dim=HPARAMS['feature_dim'], state_number=HPARAMS['state_number'])
             
         self.mae_criterion = MAE()
         self.rmse_criterion = RMSELoss()
