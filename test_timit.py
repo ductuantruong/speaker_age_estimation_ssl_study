@@ -107,19 +107,23 @@ if __name__ == "__main__":
         age_true = np.array(age_true)
         age_pred = np.array(age_pred)
 
-        amae = mean_absolute_error(age_true[male_idx], age_pred[male_idx])
-        armse = mean_squared_error(age_true[male_idx], age_pred[male_idx], squared=False)
-        print(armse, amae)
+        m_amae = mean_absolute_error(age_true[male_idx], age_pred[male_idx])
+        m_armse = mean_squared_error(age_true[male_idx], age_pred[male_idx], squared=False)
+        print(m_armse, m_amae)
 
-        amae = mean_absolute_error(age_true[female_idx], age_pred[female_idx])
-        armse = mean_squared_error(age_true[female_idx], age_pred[female_idx], squared=False)
-        print(armse, amae)
+        f_amae = mean_absolute_error(age_true[female_idx], age_pred[female_idx])
+        f_armse = mean_squared_error(age_true[female_idx], age_pred[female_idx], squared=False)
+        print(f_armse, f_amae)
         
-        amae = mean_absolute_error(age_true, age_pred)
-        armse = mean_squared_error(age_true, age_pred, squared=False)
-        print(armse, amae)
+        avg_amae = mean_absolute_error(age_true, age_pred)
+        avg_armse = mean_squared_error(age_true, age_pred, squared=False)
+        print(avg_armse, avg_amae)
         
         gender_pred_ = [int(pred[0][0] == True) for pred in gender_pred]
-        print(accuracy_score(gender_true, gender_pred_))
+        gender_acc = accuracy_score(gender_true, gender_pred_)
+        with open('test_results/{}_{}.txt'.format(hparams.upstream_model, hparams.state_number), 'w') as f:
+            str_result = str(round(m_armse, 2)) + ',' + str(round(f_armse, 2)) + ',' + str(round(avg_armse, 2)) + ',' + str(round(m_amae, 2)) + ',' + str(round(f_amae, 2)) + ',' + str(round(avg_amae, 2)) + ',' + str(gender_acc*100)
+            print(str_result)
+            print(str_result, file=f)
     else:
         print('Model chekpoint not found for Testing !!!')
