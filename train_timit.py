@@ -146,7 +146,7 @@ if __name__ == "__main__":
         ],
         logger=logger,
         resume_from_checkpoint=hparams.model_checkpoint,
-        distributed_backend='ddp',
+        #distributed_backend='ddp',
         auto_lr_find=True
         )
 
