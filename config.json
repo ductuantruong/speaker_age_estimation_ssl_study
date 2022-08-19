@@ -11,7 +11,8 @@
         "lr": "1e-6",
         "model_type": "Wav2vec2BiEncoder",
         "upstream_model": "wav2vec2",
-        "_comment": "upstream model to be loaded from s3prl. Some of the upstream models are: wav2vec2, hubert, TERA, mockingjay",
+        "_comment": "upstream model to be loaded from s3prl. List of exmained upstream models are: wav2vec2, hubert, TERA, mockingjay",
+        "hidden_state": "12",
         "feature_dim": "768",
 	"narrow_band": false
     },
