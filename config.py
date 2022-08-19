@@ -33,6 +33,7 @@ class TIMITConfig(object):
     # feature dimension of upstream model. For example, 
     # For wav2vec2, feature_dim = 768
     feature_dim = int(config['model_parameters']['feature_dim'])
+    hidden_state = int(config['model_parameters']['hidden_state'])
 
     # No of GPUs for training and no of workers for datalaoders
     gpu = int(config['gpu'])

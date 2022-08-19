@@ -33,6 +33,7 @@ if __name__ == "__main__":
     parser.add_argument('--batch_size', type=int, default=TIMITConfig.batch_size)
     parser.add_argument('--epochs', type=int, default=TIMITConfig.epochs)
     parser.add_argument('--num_layers', type=int, default=TIMITConfig.num_layers)
+    parser.add_argument('--hidden_state', type=int, default=TIMITConfig.hidden_state)
     parser.add_argument('--feature_dim', type=int, default=TIMITConfig.feature_dim)
     parser.add_argument('--lr', type=float, default=TIMITConfig.lr)
     parser.add_argument('--gpu', type=int, default=TIMITConfig.gpu)
