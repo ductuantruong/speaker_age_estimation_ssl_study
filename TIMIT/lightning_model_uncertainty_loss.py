@@ -10,7 +10,7 @@ from pytorch_lightning.metrics.classification import Accuracy
 import pandas as pd
 import torch_optimizer as optim
 
-from Model.models import Wav2vec2BiEncoder
+from Model.models import BiEncoder
 
 from Model.utils import RMSELoss, UncertaintyLoss
 
@@ -20,7 +20,7 @@ class LightningModel(pl.LightningModule):
         # HPARAMS
         self.save_hyperparameters()
         self.models = {
-            'Wav2vec2BiEncoder': Wav2vec2BiEncoder,
+            'BiEncoder': BiEncoder,
         }
         
         self.model = self.models[HPARAMS['model_type']](upstream_model=HPARAMS['upstream_model'], hidden_state=HPARAMS['hidden_state'], num_layers=HPARAMS['num_layers'], feature_dim=HPARAMS['feature_dim'])
