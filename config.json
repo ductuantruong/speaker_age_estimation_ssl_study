@@ -13,8 +13,7 @@
         "upstream_model": "wav2vec2",
         "_comment": "upstream model to be loaded from s3prl. List of exmained upstream models are: wav2vec2, hubert, TERA, mockingjay",
         "hidden_state": "12",
-        "feature_dim": "768",
-	"narrow_band": false
+        "feature_dim": "768"
     },
     "gpu": "-1",
     "n_workers": "0"

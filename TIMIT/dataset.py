@@ -24,12 +24,6 @@ class TIMITDataset(Dataset):
         self.df.set_index('ID', inplace=True)
         self.gender_dict = {'M' : 0.0, 'F' : 1.0}
         
-        self.narrow_band = hparams.narrow_band
-        
-        if self.narrow_band:
-            self.resampleDown = torchaudio.transforms.Resample(orig_freq=16000, new_freq=8000)
-            self.resampleUp = torchaudio.transforms.Resample(orig_freq=8000, new_freq=16000) 
-        
     def __len__(self):
         return len(self.files)
 
@@ -48,9 +42,6 @@ class TIMITDataset(Dataset):
         if(wav.shape[0] != 1):
             wav = torch.mean(wav, dim=0)
             
-        if self.narrow_band:
-            wav = self.resampleUp(self.resampleDown(wav))
-        
         a_mean = self.df[self.df['Use'] == 'TRN']['age'].mean()
         a_std = self.df[self.df['Use'] == 'TRN']['age'].std()
         
