@@ -42,8 +42,6 @@ if __name__ == "__main__":
     parser.add_argument('--model_checkpoint', type=str, default=TIMITConfig.model_checkpoint)
     parser.add_argument('--upstream_model', type=str, default=TIMITConfig.upstream_model)
     parser.add_argument('--model_type', type=str, default=TIMITConfig.model_type)
-    parser.add_argument('--narrow_band', type=str, default=TIMITConfig.narrow_band)
-    parser.add_argument('--state_number', type=str, default='last_hidden_state')
     
     parser = pl.Trainer.add_argparse_args(parser)
     hparams = parser.parse_args()
