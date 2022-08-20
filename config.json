@@ -10,11 +10,10 @@
         "epochs": "200",
         "lr": "1e-6",
         "model_type": "BiEncoder",
-        "upstream_model": "wav2vec2",
+        "upstream_model": "pase_plus",
         "_comment": "upstream model to be loaded from s3prl. List of exmained upstream models are: wav2vec2, hubert, TERA, mockingjay",
-        "hidden_state": "12",
-        "feature_dim": "768",
-	"narrow_band": false
+        "hidden_state": "8",
+        "feature_dim": "768"
     },
     "gpu": "-1",
     "n_workers": "0"
