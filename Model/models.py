@@ -2,12 +2,12 @@ import torch
 import torch.nn as nn
 
 class BiEncoder(nn.Module):
-    def __init__(self, upstream_model='wav2vec2', hidden_state=12, num_layers=6, feature_dim=768):
+    def __init__(self, upstream_model='npc_960hr', hidden_state=4, num_layers=6, feature_dim=768):
         super().__init__()
         self.upstream = torch.hub.load('s3prl/s3prl', upstream_model) # loading ssl model from s3prl
-        self.n_encoder_layer = len(self.upstream.model.encoder.layers)
-        assert hidden_state > 0 and hidden_state <= self.n_encoder_layer 
-        self.hidden_state = 'hidden_state_{}'.format(hidden_state)
+        self.n_encoder_layer = len(self.upstream.model.vq_layers)
+        assert hidden_state > 0 and hidden_state <= self.n_encoder_layer - 4 
+        self.hidden_state = 'hidden_state_{}'.format(hidden_state + 4) # + 4 because the first 4 states is just CNN layers
         
         for param in self.upstream.parameters():
             param.requires_grad = True
@@ -31,7 +31,6 @@ class BiEncoder(nn.Module):
 
     def forward(self, x, x_len):
         x_input = [torch.narrow(wav, 0, 0, x_len[i]) for (i, wav) in enumerate(x.squeeze(1))]
-        x = self.upstream(x_input)
         # s3prl sometimes misses the ouput of some hidden states so need a while loop to assure we can get the output of the desired hidden state 
         while self.hidden_state not in x.keys():
             x = self.upstream(x_input)
